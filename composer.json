@@ -1,0 +1,40 @@
+{
+    "name": "oblak/wp-package-updater",
+    "description": "Simplifies the process of updating WordPress packages from custom repositories.",
+    "authors": [
+        {
+            "name": "Sibin Grasic",
+            "email": "sibin.grasic@oblak.studio"
+        }
+    ],
+    "license": "GPL-2.0-only",
+    "version": "1.0.0",
+    "type": "library",
+    "require": {
+        "php": ">= 7.4"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "*",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1 || ^1.0.0",
+        "wp-coding-standards/wpcs": "*",
+        "phpcompatibility/phpcompatibility-wp": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Oblak\\WP\\": "src"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "scripts": {
+        "install-codestandards": [
+            "Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\Plugin::run"
+        ],
+        "post-install-cmd": [
+            "@install-codestandards"
+        ]
+    }
+}
