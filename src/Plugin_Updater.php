@@ -31,8 +31,6 @@ abstract class Plugin_Updater extends Base_Updater {
         parent::__construct( $slug, 'plugins' );
 
         $this->basename = $this->find_basename( $slug );
-
-        $this->maybe_load_files();
     }
 
     /**
@@ -53,17 +51,11 @@ abstract class Plugin_Updater extends Base_Updater {
         throw new Exception( "Plugin {$slug} not found" );
     }
 
-    /**
-     * Loads the files with missing functions if needed
-     */
-    protected function maybe_load_files() {
+    // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
+    final protected function get_current_version() {
         if ( ! function_exists( 'get_plugin_data' ) ) {
             require_once ABSPATH . 'wp-admin/includes/plugin.php';
         }
-    }
-
-    // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
-    final protected function get_current_version() {
         return get_plugin_data( WP_PLUGIN_DIR . '/' . $this->basename )['Version'];
     }
 
@@ -79,32 +71,18 @@ abstract class Plugin_Updater extends Base_Updater {
             return $result;
         }
 
-        return (object) $this->get_version_data();
+        return (object) $this->get_package_data();
     }
 
-    /**
-     * Check for updates
-     *
-     * @param  object $transient Plugin update transient.
-     * @return object            Modified plugin update transient.
-     */
-    public function update_plugins_transient( $transient ) {
-        $version_data = $this->get_version_data();
+    // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
+    public function transform_response( $response ): object {
+        $version_data['plugin'] = $this->basename;
+        return (object) $response;
+    }
 
-        if ( $version_data && '' !== $version_data['package'] ) {
-            $version_data['plugin']                  = $this->basename;
-            $transient->response[ $this->basename ]  = (object) $version_data;
-            $transient->no_update[ $this->basename ] = (object) $version_data;
-
-            return $transient;
-        }
-
-        unset( $transient->response[ $this->basename ] );
-        unset( $transient->no_update[ $this->basename ] );
-
-        $transient->checked[ $this->basename ] = $version_data['new_version'];
-
-        return $transient;
+    // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
+    protected function get_identifier() {
+        return $this->basename;
     }
 
 }

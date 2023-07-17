@@ -39,7 +39,7 @@ abstract class Theme_Updater extends Base_Updater {
             return $result;
         }
 
-        return (object) $this->get_version_data();
+        return (object) $this->get_package_data();
     }
 
     /**
@@ -49,7 +49,7 @@ abstract class Theme_Updater extends Base_Updater {
      * @return object            Modified theme update transient.
      */
     public function update_themes_transient( $transient ) {
-        $version_data = $this->get_version_data();
+        $version_data = $this->get_package_data();
 
         if ( $version_data && '' !== $version_data['package'] ) {
             $transient->response[ $this->slug ]  = $version_data;
@@ -64,6 +64,16 @@ abstract class Theme_Updater extends Base_Updater {
         $transient->checked[ $this->slug ] = $version_data['new_version'];
 
         return $transient;
+    }
+
+    // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
+    public function transform_response( $response ): array {
+        return $response;
+    }
+
+    // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
+    protected function get_identifier() {
+        return $this->slug;
     }
 
 }

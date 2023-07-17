@@ -42,7 +42,7 @@ abstract class Base_Updater {
      */
     protected function init_hooks( $type ) {
         add_filter( "{$type}_api", array( $this, "display_{$type}_info" ), 99, 3 );
-        add_filter( "pre_set_site_transient_update_{$type}", array( $this, "update_{$type}_transient" ), 30 );
+        add_filter( "pre_set_site_transient_update_{$type}", array( $this, 'update_transient' ), 30 );
     }
 
     /**
@@ -60,6 +60,11 @@ abstract class Base_Updater {
     abstract protected function get_current_version();
 
     /**
+     * Get the identifier for the plugin / theme
+     */
+    abstract protected function get_identifier();
+
+    /**
      * Get headers for the update request
      *
      * @return array
@@ -67,6 +72,15 @@ abstract class Base_Updater {
     protected function get_headers() {
         return array();
     }
+
+
+    /**
+     * Transform the response from the repo
+     *
+     * @param array $response The response from the repo.
+     * @return array|object   The transformed response
+     */
+    abstract protected function transform_response( $response): array|object;
 
     /**
      * Get the transient prefix
@@ -87,35 +101,63 @@ abstract class Base_Updater {
     }
 
     /**
-     * Get version data for the current plugin
+     * Get package data for the current plugin / theme
      *
      * @return array|false The plugin / theme info or false if not found
      */
-    final protected function get_version_data() {
-        $version_data = wp_get_environment_type() === 'production'
+    final protected function get_package_data() {
+        $repo_data = wp_get_environment_type() === 'production'
             ? get_site_transient( $this->get_transient_name() )
             : false;
 
-        if ( false !== $version_data ) {
-            return $version_data;
+        if ( false !== $repo_data ) {
+            return $repo_data;
         }
 
-        $current_version = $this->get_current_version();
-        $repo_version    = $this->get_data_from_repo();
+        $repo_data = $this->get_data_from_repo();
 
-        if ( false === $repo_version ) {
+        if ( false === $repo_data ) {
             return false;
         }
 
-        if ( version_compare( $current_version, $repo_version['version'], '>=' ) ) {
-            $repo_version['new_version']   = $current_version;
-            $repo_version['package']       = '';
-            $repo_version['download_link'] = '';
+        set_site_transient( $this->get_transient_name(), $repo_data, DAY_IN_SECONDS );
+
+        return $repo_data;
+    }
+
+    /**
+     * Update the theme / plugin update info transient
+     *
+     * @param object $transient Transient.
+     * @return object           Modified transient
+     */
+    public function update_transient( $transient ) {
+        if ( isset( $transient->response[ $this->get_identifier() ] ) ) {
+            return $transient;
         }
 
-        set_site_transient( $this->get_transient_name(), $repo_version, DAY_IN_SECONDS );
+        $current_version = $this->get_current_version();
+        $repo_data       = $this->get_package_data();
 
-        return $repo_version;
+        if ( false === $repo_data ) {
+            $transient->checked[ $this->get_identifier() ] = $current_version;
+            return $transient;
+        }
+
+        // Add the current version to the checked array.
+        $transient->checked[ $this->get_identifier() ] = $repo_data['new_version'];
+
+        // If the repository package is newer than the installed version, add to updated array.
+        if ( version_compare( $repo_data['new_version'], $current_version, '>' ) ) {
+            $transient->response[ $this->get_identifier() ] = $this->transform_response( $repo_data );
+
+            return $transient;
+        }
+
+        // If the repository package is the same as the installed version, add to no_update array.
+        $transient->no_update[ $this->get_identifier() ] = $this->transform_response( $repo_data );
+
+        return $transient;
     }
 
     /**
