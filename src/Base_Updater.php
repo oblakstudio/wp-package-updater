@@ -43,6 +43,7 @@ abstract class Base_Updater {
     protected function init_hooks( $type ) {
         add_filter( "{$type}_api", array( $this, "display_{$type}_info" ), 99, 3 );
         add_filter( "pre_set_site_transient_update_{$type}", array( $this, 'update_transient' ), 30 );
+        add_filter( 'upgrader_process_complete', array( $this, "after_{$type}_update" ), 99, 2 );
     }
 
     /**

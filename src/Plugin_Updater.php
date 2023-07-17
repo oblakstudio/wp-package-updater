@@ -9,6 +9,7 @@
 namespace Oblak\WP;
 
 use Exception;
+use WP_Upgrader;
 
 /**
  * Base plugin updater
@@ -83,6 +84,24 @@ abstract class Plugin_Updater extends Base_Updater {
     // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
     protected function get_identifier() {
         return $this->basename;
+    }
+
+    /**
+     * Hook to clear the update transient when the plugin is updated
+     *
+     * @param  WP_Upgrader $upgrader_object Upgrader object.
+     * @param  array       $options         Hook options.
+     */
+    public function after_plugins_update( $upgrader_object, $options ) {
+        if ( 'update' !== $options['action'] || 'plugin' !== $options['type'] ) {
+            return;
+        }
+
+        if ( ! in_array( $this->get_identifier(), $options['plugins'], true ) ) {
+            return;
+        }
+
+        delete_site_transient( $this->get_transient_name() );
     }
 
 }

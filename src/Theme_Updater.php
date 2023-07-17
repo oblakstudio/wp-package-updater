@@ -76,4 +76,22 @@ abstract class Theme_Updater extends Base_Updater {
         return $this->slug;
     }
 
+    /**
+     * Hook to clear the update transient when the plugin is updated
+     *
+     * @param  WP_Upgrader $upgrader_object Upgrader object.
+     * @param  array       $options         Hook options.
+     */
+    public function after_themes_update( $upgrader_object, $options ) {
+        if ( 'update' !== $options['action'] || 'theme' !== $options['type'] ) {
+            return;
+        }
+
+        if ( ! in_array( $this->get_identifier(), $options['themes'], true ) ) {
+            return;
+        }
+
+        delete_site_transient( $this->get_transient_name() );
+    }
+
 }
