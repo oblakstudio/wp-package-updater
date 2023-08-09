@@ -1,3 +1,16 @@
+# [1.2.0](https://github.com/oblakstudio/wp-package-updater/compare/v1.1.0...v1.2.0) (2023-08-09)
+
+
+### Bug Fixes
+
+* Removed yarn caches ([3d83534](https://github.com/oblakstudio/wp-package-updater/commit/3d835345ba2a59932aa0016e3d78e6245d31dad0))
+* Removed yarn caches ([b0b85db](https://github.com/oblakstudio/wp-package-updater/commit/b0b85db6c207e9c0acf433ef5a97c60bd77b00df))
+
+
+### Features
+
+* Implemented transient expiry time override ([20365c0](https://github.com/oblakstudio/wp-package-updater/commit/20365c049b989a2bab91a613d97966febfa3ea13))
+
 # [1.1.0](https://github.com/oblakstudio/wp-package-updater/compare/v1.0.1...v1.1.0) (2023-07-17)
 
 
