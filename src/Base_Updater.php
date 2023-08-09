@@ -74,6 +74,14 @@ abstract class Base_Updater {
         return array();
     }
 
+    /**
+     * Get transient expiry - in seconds
+     *
+     * @return int
+     */
+    protected function get_transient_expiry() {
+        return DAY_IN_SECONDS;
+    }
 
     /**
      * Transform the response from the repo
@@ -121,7 +129,7 @@ abstract class Base_Updater {
             return false;
         }
 
-        set_site_transient( $this->get_transient_name(), $repo_data, DAY_IN_SECONDS );
+        set_site_transient( $this->get_transient_name(), $repo_data, $this->get_transient_expiry() );
 
         return $repo_data;
     }
