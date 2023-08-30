@@ -97,7 +97,7 @@ abstract class Plugin_Updater extends Base_Updater {
             return;
         }
 
-        if ( ! in_array( $this->get_identifier(), $options['plugins'], true ) ) {
+        if ( ! in_array( $this->get_identifier(), $options['plugins'] ?? array(), true ) ) {
             return;
         }
 
