@@ -1,3 +1,11 @@
+## [1.2.1](https://github.com/oblakstudio/wp-package-updater/compare/v1.2.0...v1.2.1) (2023-08-30)
+
+
+### Bug Fixes
+
+* Fixed composer deps ([6876d97](https://github.com/oblakstudio/wp-package-updater/commit/6876d97feeabb62e8eb75b08d0c047043e11ae3d))
+* Fixed null coalesce ([45f11ad](https://github.com/oblakstudio/wp-package-updater/commit/45f11ade7268b309e7b5b6cad7e5072a0025a406))
+
 # [1.2.0](https://github.com/oblakstudio/wp-package-updater/compare/v1.1.0...v1.2.0) (2023-08-09)
 
 
