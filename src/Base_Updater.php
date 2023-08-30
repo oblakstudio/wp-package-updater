@@ -89,7 +89,7 @@ abstract class Base_Updater {
      * @param array $response The response from the repo.
      * @return array|object   The transformed response
      */
-    abstract protected function transform_response( $response): array|object;
+    abstract protected function transform_response( $response ): array|object;
 
     /**
      * Get the transient prefix

@@ -49,7 +49,7 @@ abstract class Plugin_Updater extends Base_Updater {
             }
         }
 
-        throw new Exception( "Plugin {$slug} not found" );
+        throw new Exception( esc_html( "Plugin {$slug} not found" ) );
     }
 
     // phpcs:ignore Squiz.Commenting.FunctionComment.Missing
@@ -103,5 +103,4 @@ abstract class Plugin_Updater extends Base_Updater {
 
         delete_site_transient( $this->get_transient_name() );
     }
-
 }

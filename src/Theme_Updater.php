@@ -93,5 +93,4 @@ abstract class Theme_Updater extends Base_Updater {
 
         delete_site_transient( $this->get_transient_name() );
     }
-
 }

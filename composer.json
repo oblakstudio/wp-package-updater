@@ -14,10 +14,7 @@
         "php": ">= 7.4"
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "*",
-        "dealerdirect/phpcodesniffer-composer-installer": "^0.7.1 || ^1.0.0",
-        "wp-coding-standards/wpcs": "*",
-        "phpcompatibility/phpcompatibility-wp": "*"
+        "oblak/wordpress-coding-standard": "^1"
     },
     "autoload": {
         "psr-4": {
