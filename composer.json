@@ -1,37 +1,48 @@
 {
-    "name": "oblak/wp-package-updater",
-    "description": "Simplifies the process of updating WordPress packages from custom repositories.",
-    "authors": [
-        {
-            "name": "Sibin Grasic",
-            "email": "sibin.grasic@oblak.studio"
-        }
-    ],
-    "license": "GPL-2.0-only",
-    "version": "1.2.0",
-    "type": "library",
-    "require": {
-        "php": ">= 7.4"
-    },
-    "require-dev": {
-        "oblak/wordpress-coding-standard": "^1"
-    },
-    "autoload": {
-        "psr-4": {
-            "Oblak\\WP\\": "src"
-        }
-    },
-    "config": {
-        "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
-        }
-    },
-    "scripts": {
-        "install-codestandards": [
-            "Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\Plugin::run"
-        ],
-        "post-install-cmd": [
-            "@install-codestandards"
-        ]
+  "name": "oblak/wp-package-updater",
+  "description": "Simplifies the process of updating WordPress packages from custom repositories.",
+  "license": "GPL-2.0-only",
+  "type": "library",
+  "version": "1.2.0",
+  "non-feature-branches": [
+    "feat/*"
+  ],
+  "keywords": [
+    "wordpress",
+    "composer",
+    "package",
+    "updater"
+  ],
+  "authors": [
+    {
+      "name": "Sibin Grasic",
+      "email": "sibin.grasic@oblak.studio",
+      "homepage": "https://oblak.host",
+      "role": "Developer"
     }
+  ],
+  "support": {
+    "issues": "https://github.com/oblakstudio/wp-package-updater/issues"
+  },
+  "require": {
+    "php": ">= 8.0"
+  },
+  "require-dev": {
+    "ergebnis/composer-normalize": "^2.41",
+    "oblak/wordpress-coding-standard": "^1"
+  },
+  "suggest": {
+    "automattic/jetpack-autoloader": "Allow for better interoperability with other plugins that use this package."
+  },
+  "autoload": {
+    "psr-4": {
+      "Oblak\\WP\\": "src"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "ergebnis/composer-normalize": true
+    }
+  }
 }

@@ -2,8 +2,7 @@
 /**
  * Theme_Updater class file.
  *
- * @package WooCommerce Sync Service
- * @subpackage Update
+ * @package Package Updater
  */
 
 namespace Oblak\WP;

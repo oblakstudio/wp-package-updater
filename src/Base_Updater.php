@@ -2,7 +2,7 @@
 /**
  * Base Updater
  *
- * @package Melany
+ * @package Package Updater
  */
 
 namespace Oblak\WP;
@@ -30,6 +30,7 @@ abstract class Base_Updater {
      * @param string $type Type of updater. Can be 'theme' or 'plugin'.
      */
     public function __construct( $slug, $type ) {
+        _deprecated_class( __CLASS__, '2.0.0', Updater\Package_Updater::class );
         $this->slug = $slug;
 
         $this->init_hooks( $type );
