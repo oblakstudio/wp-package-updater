@@ -1,6 +1,6 @@
 <?php
 /**
- * Package_Updater class file
+ * Update_Manager class file
  *
  * @package Package Updater
  */
@@ -10,13 +10,13 @@ namespace Oblak\WP\Updater;
 /**
  * Package Updater
  */
-class Package_Updater {
+class Update_Manager {
     /**
      * Class instance
      *
      * @var static
      */
-    protected static ?Package_Updater $instance = null;
+    protected static ?Update_Manager $instance = null;
 
     /**
      * Array holding hostnames and their handlers
@@ -38,6 +38,15 @@ class Package_Updater {
      */
     public static function init(): void {
         static::$instance ??= new static();
+    }
+
+    /**
+     * Checks if the singleton has been initialized
+     *
+     * @return bool
+     */
+    public static function initialized(): bool {
+        return null !== static::$instance;
     }
 
     /**
