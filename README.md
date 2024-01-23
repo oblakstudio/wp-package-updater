@@ -1,7 +1,8 @@
 <div align="center">
 
-<h1 align="center" style="border-bottom: none;">📦 WordPress package updater</h1>
-<h3 align="center">Simplifies the process of updating WordPress packages from custom repositories.</h3>
+# 📦 WordPress package updater
+
+### Simplifies the process of updating WordPress packages from custom repositories.
 
 ![Packagist Version](https://img.shields.io/packagist/v/oblak/wp-package-updater)
 ![Packagist PHP Version](https://img.shields.io/packagist/dependency-v/oblak/wp-package-updater/php)
