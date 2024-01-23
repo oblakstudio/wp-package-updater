@@ -95,7 +95,7 @@ class Update_Manager {
             return $result;
         }
 
-        $data = $this->handlers[ $this->get_hostname( $args->slug ) ]->get_remote_data( $args->slug );
+        $data = $this->handlers[ $this->get_hostname( $args->slug ) ]?->get_remote_data( $args->slug );
 
         return $data ? (object) $data : $result;
     }
