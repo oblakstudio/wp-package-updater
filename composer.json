@@ -27,8 +27,8 @@
     "php": ">= 8.0"
   },
   "require-dev": {
-    "ergebnis/composer-normalize": "^2.41",
-    "oblak/wordpress-coding-standard": "^1"
+    "oblak/wordpress-coding-standard": "^1",
+    "ergebnis/composer-normalize": "^2.31"
   },
   "suggest": {
     "automattic/jetpack-autoloader": "Allow for better interoperability with other plugins that use this package."
