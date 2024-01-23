@@ -4,7 +4,7 @@
 
 ### Simplifies the process of updating WordPress packages from custom repositories.
 
-![Packagist Version](https://img.shields.io/packagist/v/oblak/wp-package-updater)
+[![Packagist Version](https://img.shields.io/packagist/v/oblak/wp-package-updater)](https://packagist.org/packages/oblak/wp-package-updater)
 ![Packagist PHP Version](https://img.shields.io/packagist/dependency-v/oblak/wp-package-updater/php)
 [![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 
