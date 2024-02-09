@@ -91,11 +91,12 @@ class Update_Manager {
      * @return object|array|bool         The result. Package info or false.
      */
     public function display_package_info( object|array|bool $result, $action, object $args ): object|array|false {
-        if ( ! in_array( $action, array( 'plugin_information', 'theme_information' ), true ) ) {
+        $host = $this->get_hostname( $args->slug );
+        if ( ! in_array( $action, array( 'plugin_information', 'theme_information' ), true ) || ! $host ) {
             return $result;
         }
 
-        $data = $this->handlers[ $this->get_hostname( $args->slug ) ]?->get_remote_data( $args->slug );
+        $data = $this->handlers[ $host ]?->get_remote_data( $args->slug );
 
         return $data ? (object) $data : $result;
     }
